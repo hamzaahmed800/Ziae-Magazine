@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_latest"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Latest" />
+        <item
+            android:id="@+id/nav_old"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Previous" />
+        <item
+            android:id="@+id/nav_offical_web"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Official website" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Contact Us" />
+    </group>
+
+
+
+</menu>

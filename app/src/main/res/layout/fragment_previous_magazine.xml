@@ -1,0 +1,34 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/previousMagazine"
+    tools:context="ziaetaiba.com.zia_e_magazine.Fragments.PreviousMagazineFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/previousmagazine_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+         </android.support.v7.widget.RecyclerView>
+
+
+        <ProgressBar
+            android:id="@+id/previousmagazine_progressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_in"
+            android:visibility="visible" />
+
+
+    </RelativeLayout>
+
+</FrameLayout>
