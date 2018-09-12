@@ -20,20 +20,20 @@
     android:layout_height="wrap_content"
     android:text="heading"
     android:textStyle="bold"
-    android:textColor="#000"
-    android:textSize="25sp"
+    android:textColor="@color/colorPrimaryDark"
+    android:textSize="22sp"
     android:gravity="center"
-    android:layout_marginBottom="5dp"/>
+    android:background="@color/colorAccent"/>
 
     <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/round_background">
+    android:background="@color/colorAccent">
 
     <ImageView
     android:id="@+id/headImage"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="220dp"
     android:layout_marginRight="3dp"
     android:layout_marginLeft="3dp"/>
 

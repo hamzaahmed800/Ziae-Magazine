@@ -75,7 +75,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 
         TextView headText;
         HtmlTextView descriptionText;
-        ImageView headingImage,imageView1,imageView2,imageView3,imageView4,imageView5;
+        ImageView headingImage;
         ProgressBar progressBar;
 
 
@@ -88,21 +88,16 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
             headingImage = itemView.findViewById(R.id.headImage);
 
             descriptionText = itemView.findViewById(R.id.descriptionText);
-//            imageView1 = itemView.findViewById(R.id.articleImage1);
-//            imageView2 = itemView.findViewById(R.id.articleImage2);
-//            imageView3 = itemView.findViewById(R.id.articleImage3);
-//            imageView4 = itemView.findViewById(R.id.articleImage4);
-//            imageView5 = itemView.findViewById(R.id.articleImage5);
 
 
             // For Heading
             Typeface headingFont,DescriptionFont;
             if(Constants.language.equals("ur")){
                 headingFont = Typeface.createFromAsset(context.getAssets(), "Aslam.ttf");
-                headText.setTypeface(headingFont);
+                headText.setTypeface(headingFont,Typeface.NORMAL);
             }else{
                 headingFont = Typeface.createFromAsset(context.getAssets(), "Arial.ttf");
-                headText.setTypeface(headingFont);
+                headText.setTypeface(headingFont,Typeface.NORMAL);
             }
 
             //For Description

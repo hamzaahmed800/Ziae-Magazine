@@ -16,6 +16,8 @@ import ziaetaiba.com.zia_e_magazine.Models.Product_Model;
 public interface ApiInterface {
 
     @GET(Api_URLS.PACKAGE_API + Api_URLS.MENU_API + Api_URLS.EXTENSION_API)
+    Call<Menu_Model> getMenu(@Query("lang")String language);
+    @GET(Api_URLS.PACKAGE_API + Api_URLS.MENU_API + Api_URLS.EXTENSION_API)
     Call<Menu_Model> getMenu(@Query("lang")String language,@Query("year")String year,@Query("month")String month);
     @GET(Api_URLS.PACKAGE_API + Api_URLS.HOMEDATA_API + Api_URLS.EXTENSION_API)
     Call<Home_Model> getHomeData(@Query("lang") String language,@Query("year") String s,@Query("month") String s1);

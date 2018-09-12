@@ -1,6 +1,7 @@
 package ziaetaiba.com.zia_e_magazine.Fragments;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,7 +40,13 @@ public class PreviousMagazineFragment extends Fragment implements setOtherMagazi
     public MagazineList_Adapter adapter;
     public ProgressBar progressBar;
     public List<PreviousMagazineData_Model> lisItems;
+    public Context context;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     public PreviousMagazineFragment() {
     }
@@ -61,10 +68,17 @@ public class PreviousMagazineFragment extends Fragment implements setOtherMagazi
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        if(ConnectionStatus.getInstance(getContext()).isOnline()){
+        if(ConnectionStatus.getInstance(context).isOnline()){
             getMagazineList();
+        }else{
+
+            Toast.makeText(context,Constants.internet_require,Toast.LENGTH_SHORT).show();
+            adapter = new MagazineList_Adapter(context,lisItems);
+            recyclerView.setAdapter(adapter);
+            adapter.setItemClickListener(PreviousMagazineFragment.this);
+
         }
+
 
 
 
@@ -84,22 +98,23 @@ public class PreviousMagazineFragment extends Fragment implements setOtherMagazi
                     PreviousMagazine_Model previousMagazine_model = response.body();
                     if(previousMagazine_model != null){
                         lisItems.addAll(previousMagazine_model.getYearly());
-                        adapter = new MagazineList_Adapter(getContext(),lisItems);
+                        adapter = new MagazineList_Adapter(context,lisItems);
                         recyclerView.setAdapter(adapter);
                         adapter.setItemClickListener(PreviousMagazineFragment.this);
 
+
                     }else{
-                        Toast.makeText(getContext(),Constants.null_data,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,Constants.null_data,Toast.LENGTH_SHORT).show();
                     }
 
                 }else{
-                    Toast.makeText(getContext(),Constants.server_error,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,Constants.server_error,Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<PreviousMagazine_Model> call, Throwable t) {
-                Toast.makeText(getContext(),Constants.networkerror,Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,Constants.networkerror,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -107,10 +122,14 @@ public class PreviousMagazineFragment extends Fragment implements setOtherMagazi
 
     @Override
     public void onClick(View view,PreviousMagazineData_Model previousMagazineData_model) {
-        Constants.magzine_month_year = previousMagazineData_model.getName();
+
+        Constants.month_type = Integer.parseInt(previousMagazineData_model.getId())-1;
         Constants.month = previousMagazineData_model.getMonth();
         Constants.year = previousMagazineData_model.getYear();
-        startActivity(new Intent(getActivity(), MainActivity.class));
+        Constants.backStack = false;
+        startActivity(new Intent(context, MainActivity.class));
         getActivity().finish();
+
     }
+
 }
