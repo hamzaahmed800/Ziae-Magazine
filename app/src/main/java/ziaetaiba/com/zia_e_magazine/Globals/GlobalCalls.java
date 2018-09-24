@@ -132,6 +132,7 @@ public class GlobalCalls {
     public static void removeMonth(Context context){
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
         editor.remove(MONTH_KEY);
+        editor.remove(MONTHURDU_KEY);
         editor.apply();
     }
 

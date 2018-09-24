@@ -51,7 +51,7 @@ public class MagazineApp extends Application {
         dbHelper = new DBHelper(this);
         cursor =  dbHelper.getAllMenuData();
         if(cursor.getCount() == 0){
-           // PageFragment.checkFirst = true;
+          Log.e("---->","1");
             try {
                 if(ConnectionStatus.getInstance(getApplicationContext()).isOnline()){
                     FetchMenusData();
@@ -60,8 +60,8 @@ public class MagazineApp extends Application {
 
             }catch (Exception e){e.printStackTrace();}
 
-        }else if(cursor.getCount() > 0 && GlobalCalls.retriveMonth(getApplicationContext(),GlobalCalls.MONTH_KEY) != Constants.month){
-
+        }else if(cursor.getCount() > 0 ){
+            Log.e("---->","2");
                 updateDatabase();
         }
 
@@ -141,12 +141,6 @@ public class MagazineApp extends Application {
                                         home_model.getProductsDetails().get(i).getThumbnailPath(),
                                         home_model.getProductsDetails().get(i).getDescription());
 
-//                                new ImageDownloader(getBaseContext(),home_model.getProductsDetails().get(i).getThumbnailPath(),
-//                                        home_model.getProductsDetails().get(i).getName());
-                                     //   Toast.makeText(MainActivity.this, "request permission success", Toast.LENGTH_SHORT).show();
-
-
-
 
                             }else{
 
@@ -183,26 +177,35 @@ public class MagazineApp extends Application {
                     Constants.month = menu_model.getMonth();
                     Constants.year = menu_model.getYear();
                     GlobalCalls.getMonth(Constants.month);
+                    NewProduct();
                   //  else {Toast.makeText(getApplicationContext(), Constants.null_data, Toast.LENGTH_SHORT).show();}
                 } else {Toast.makeText(getApplicationContext(), Constants.server_error, Toast.LENGTH_SHORT).show();}}
             @Override
             public void onFailure(Call<Menu_Model> call, Throwable t) {//        Toast.makeText(getApplicationContext(), Constants.server_error, Toast.LENGTH_SHORT).show()
                  }});
+      //      Log.e("Saved ", ""+GlobalCalls.retriveMonth(getApplicationContext(),GlobalCalls.MONTH_KEY));
 
+    }
+
+    private void NewProduct(){
         if (GlobalCalls.GlobalMonth != GlobalCalls.retriveMonth(getApplicationContext(),GlobalCalls.MONTH_KEY)){
             ///Product Data Call
-            Log.e("UpdateDatabse","DataChanger");
+            Log.e("RetriveMonth",GlobalCalls.retriveMonth(getApplicationContext(),GlobalCalls.MONTH_KEY));
+            Log.e("Month",Constants.month);
+            Log.e("Year",Constants.year);
+            Retrofit retrofit = Connect_Server.getApiClient();
+            ApiInterface clientAPIs = retrofit.create(ApiInterface.class);
             Call<Home_Model> callProduct = clientAPIs.getHomeData(Constants.language,Constants.year,Constants.month);
             callProduct.enqueue(new Callback<Home_Model>() {
                 @Override
                 public void onResponse(Call<Home_Model> call, Response<Home_Model> response) {
                     if(response.isSuccessful()){
+                        Log.e("Response","sucessful");
                         home_model = response.body();
                         if(home_model != null && home_model.getProductsDetails().size() > 0){
-
+                         //   Log.e("NewData","Insertion");
                             GlobalCalls.removeMonth(getApplicationContext());
                             GlobalCalls.saveMonth(getApplicationContext(),Constants.month,Constants.month_type);
-                            //    Log.e("NEW MONTH",GlobalCalls.retriveMonth(getApplicationContext()));
                             dbHelper.updateTables();
                             dbHelper.insertMenuData("1", "ہوم",Constants.month+"/"+"ہوم");
                             for(int i=0;i<menu_model.getMenus().size();i++){
@@ -211,25 +214,21 @@ public class MagazineApp extends Application {
                                         menu_model.getMenus().get(i).getExtra());
 
                             }
-
                             for(int i=0;i<home_model.getProductsDetails().size();i++) {
+                                productData = true;
                                 if (!home_model.getProductsDetails().get(i).getDescription().equals("")) {
-                                    //   Log.e("ProductUpdate", "true");
-                                    productData = true;
-                                    //     for (int i = 0; i < home_model.getProductsDetails().size(); i++) {
-                                    if (!home_model.getProductsDetails().get(i).getDescription().equals("")) {
-
-                                        dbHelper.insertProductData(home_model.getProductsDetails().get(i).getId(),
-                                                home_model.getProductsDetails().get(i).getName(),
-                                                home_model.getProductsDetails().get(i).getThumbnailPath(),
-                                                home_model.getProductsDetails().get(i).getDescription());
+                                    Log.e("NewData","Insertion");
+                                    dbHelper.insertProductData(home_model.getProductsDetails().get(i).getId(),
+                                            home_model.getProductsDetails().get(i).getName(),
+                                            home_model.getProductsDetails().get(i).getThumbnailPath(),
+                                            home_model.getProductsDetails().get(i).getDescription());
 //                                        new ImageDownloader(getApplicationContext(), home_model.getProductsDetails().get(i).getThumbnailPath(),
 //                                                home_model.getProductsDetails().get(i).getName());
-                                    } else {}
-                                    //    }
-                                } else {
-                                }
+                                } else {}
+                                //    }
+
                             }
+
                         }else{
                             Toast.makeText(getApplicationContext(),Constants.null_data,Toast.LENGTH_SHORT).show();}
                     } else{
@@ -242,19 +241,8 @@ public class MagazineApp extends Application {
 
             ///Product Data Call End Here
             menuData = true;
-        }
-
-
-      //  if(menuData == true && productData == true){
-
-
-
-
-    //    }else{}
-
-
+        }else{}
     }
-
 
 
 

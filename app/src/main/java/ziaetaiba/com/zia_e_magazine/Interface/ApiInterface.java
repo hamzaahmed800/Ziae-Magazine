@@ -25,4 +25,6 @@ public interface ApiInterface {
     Call<PreviousMagazine_Model> getPreviousMagazine(@Query("lang") String language, @Query("year") String s, @Query("month") String s1);
     @GET(Api_URLS.PACKAGE_API + Api_URLS.PRODUCT_DETAILS + Api_URLS.EXTENSION_API)
     Call<Product_Model> getDetails(@Query("lang")String language,@Query("year") String year,@Query("month") String month,@Query("slug") String mTab);
+
+
 }

@@ -11,6 +11,7 @@ public class Constants {
     public static String language = "ur";
     public static boolean backStack = false;
     public static boolean checkFirst = true;
+    public static boolean shareCheck = false;
     public static String month = null;
     public static String year = null;
     public static String internet_require = "Internet Require";

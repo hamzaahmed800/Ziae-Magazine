@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static int version = 1;
@@ -107,6 +108,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from "+TABLE_MENU);
         db.execSQL("delete from "+TABLE_PRODUCT);
+        Log.e("Tables","Delete");
         return true;
     }
 

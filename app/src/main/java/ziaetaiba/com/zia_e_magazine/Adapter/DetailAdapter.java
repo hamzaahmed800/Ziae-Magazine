@@ -3,6 +3,8 @@ package ziaetaiba.com.zia_e_magazine.Adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import java.util.List;
 
+import ziaetaiba.com.zia_e_magazine.Fragments.SearchFragment;
 import ziaetaiba.com.zia_e_magazine.Globals.Constants;
 import ziaetaiba.com.zia_e_magazine.Models.HomeData_Model;
 import ziaetaiba.com.zia_e_magazine.R;
@@ -29,6 +32,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 
     private List<HomeData_Model> homeData_model;
     private Context context;
+    private float textSize = 70;
 
     public DetailAdapter(Context context,List<HomeData_Model> homeData_model) {
         this.homeData_model = homeData_model;
@@ -58,9 +62,32 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                 return false;
             }
         }).into(holder.headingImage);
-        holder.descriptionText.setHtml(homeData_model.get(position).getDescription(),new HtmlHttpImageGetter(holder.descriptionText));
+
+        //if(textSize > 60 && textSize < 1000){
+            holder.descriptionText.setTextSize(TypedValue.COMPLEX_UNIT_PX,getTextSize());
+            holder.descriptionText.setLinksClickable(true);
+        //}
+            if(SearchFragment.searchIsCheck == true){
+                String textToHighlight = SearchFragment.searchString;
+                String replacedWith = "<font color='red'>" + textToHighlight + "</font>";
+                String modString = homeData_model.get(position).getDescription().replaceAll(textToHighlight,replacedWith);
+                holder.descriptionText
+                        .setHtml(modString,new HtmlHttpImageGetter(holder.descriptionText));
+            }else{
+                holder.descriptionText
+                        .setHtml(homeData_model.get(position).getDescription(),new HtmlHttpImageGetter(holder.descriptionText));
+            }
+            holder.descriptionText.setMovementMethod(LinkMovementMethod.getInstance());
 
 
+    }
+
+    public void setTextSize(float textSize) {
+        this.textSize = textSize;
+    }
+
+    public float getTextSize() {
+        return textSize;
     }
 
     @Override
@@ -90,6 +117,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
             descriptionText = itemView.findViewById(R.id.descriptionText);
 
 
+
             // For Heading
             Typeface headingFont,DescriptionFont;
             if(Constants.language.equals("ur")){
@@ -102,7 +130,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 
             //For Description
             if(Constants.language.equals("ur")){
-                DescriptionFont = Typeface.createFromAsset(context.getAssets(), "Jameel_Noori_Nastaleeq.ttf");
+                DescriptionFont = Typeface.createFromAsset(context.getAssets(), "Mehr Nastaliq.ttf");
                 descriptionText.setTypeface(DescriptionFont);
             }else{
                 DescriptionFont = Typeface.createFromAsset(context.getAssets(), "Times New Roman.ttf");

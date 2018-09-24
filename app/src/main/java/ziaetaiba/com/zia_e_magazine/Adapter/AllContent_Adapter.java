@@ -101,7 +101,7 @@ public class AllContent_Adapter extends RecyclerView.Adapter<AllContent_Adapter.
         }
     }
 
-    public void setItemClickListener(homedetailListener homedetailListener) {
+    public void setItemClickListener(homedetailListener homedetailListener){
         this.homedetailListener = homedetailListener;
     }
 
@@ -122,7 +122,7 @@ public class AllContent_Adapter extends RecyclerView.Adapter<AllContent_Adapter.
             readmoreButton = itemView.findViewById(R.id.readmorebutton);
             if(Constants.language.equals("ur")){
                 urduFont = Typeface.createFromAsset(context.getAssets(), "Aslam.ttf");
-                readmoreTypeface = Typeface.createFromAsset(context.getAssets(),"Jameel_Noori_Nastaleeq.ttf");
+                readmoreTypeface = Typeface.createFromAsset(context.getAssets(),"Mehr Nastaliq.ttf");
                 short_desc.setGravity(Gravity.RIGHT);
                 readmore.setGravity(Gravity.RIGHT);
                 short_desc.setTypeface(urduFont);
@@ -136,6 +136,7 @@ public class AllContent_Adapter extends RecyclerView.Adapter<AllContent_Adapter.
                 readmore.setTypeface(readmoreTypeface,Typeface.BOLD);
                 readmoreButton.setTypeface(readmoreTypeface,Typeface.BOLD);
             }
+            readmoreButton.setOnClickListener(this);
             itemView.setOnClickListener(this);
 
         }
