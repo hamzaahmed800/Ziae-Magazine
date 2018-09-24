@@ -24,6 +24,13 @@ public class HomeData_Model implements Serializable {
     @Expose
     private String description;
 
+    public HomeData_Model(String id, String name, String thumbnailPath, String description) {
+        this.id = id;
+        this.name = name;
+        this.thumbnailPath = thumbnailPath;
+        this.description = description;
+    }
+
     public String getId() {
         return id;
     }
@@ -48,11 +55,11 @@ public class HomeData_Model implements Serializable {
         this.thumbnailPath = thumbnailPath;
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description){
+    public void setDescription(String description) {
         this.description = description;
     }
 }

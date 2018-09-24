@@ -3,12 +3,16 @@
     <item>
         <shape android:shape="rectangle">
             <!-- solid background -->
-            <solid android:color="#ffff"/>
+            <solid android:color="#4e2509"/>
             <!-- border-->
-            <stroke
-                android:color="#D3D3D3"
+            <gradient
+                android:startColor="@color/colorPrimaryDark"
+                android:centerColor="@color/colorPrimaryDark"
+                android:endColor="@color/colorPrimary"
+                android:angle="90"
                 android:width="2dp"
                 />
+
             <corners android:radius="20dp"/>
             <!-- different corners with different radius-->
             <!--corners

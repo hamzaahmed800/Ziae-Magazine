@@ -3,10 +3,12 @@ package ziaetaiba.com.zia_e_magazine.Adapter;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,7 +30,7 @@ public class AllContent_Adapter extends RecyclerView.Adapter<AllContent_Adapter.
 
     private Context context;
     private List<HomeData_Model> homeData_modelList;
-    private Typeface urduFont = null;
+    private Typeface urduFont = null,readmoreTypeface = null;
     private homedetailListener homedetailListener;
 
     public AllContent_Adapter(Context context, List<HomeData_Model> homeData_modelList) {
@@ -63,7 +65,27 @@ public class AllContent_Adapter extends RecyclerView.Adapter<AllContent_Adapter.
             }
         }).into(holder.topic_image);
 
-            holder.short_desc.setText(data_model.getName());
+            holder.readmoreButton.setText("مزید پڑھے");
+            holder.short_desc.setText("  "+data_model.getName()+"  ");
+           // String[] lines = homeData_modelList.get(position).getDescription().split(System.getProperty("line.separator"));
+            if(homeData_modelList.get(position).getDescription().length() > 0){
+                int start = homeData_modelList.get(position).getDescription().indexOf(homeData_modelList.get(position).getDescription());
+                if(start < 0){
+                    holder.readmore.setText("..............................................");
+                }else {
+                    //Log.e("Length", String.valueOf(homeData_modelList.get(position).getDescription().length()));
+                    String des;
+                    des = String.valueOf(Html.fromHtml(homeData_modelList.get(position).getDescription()));
+                  //  Log.e("String",des.substring(start,start+50));
+                   // Log.e("NEW STRING ",des.substring(start,start+50));
+                    holder.readmore.setText(" "+des.substring(start,start+50)+"....");
+                }
+
+            }else{
+                holder.readmore.setText("..............................................");
+            }
+
+
 
 
 
@@ -79,31 +101,42 @@ public class AllContent_Adapter extends RecyclerView.Adapter<AllContent_Adapter.
         }
     }
 
-    public void setItemClickListener(homedetailListener homedetailListener) {
+    public void setItemClickListener(homedetailListener homedetailListener){
         this.homedetailListener = homedetailListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ImageView topic_image;
-        private TextView short_desc;
+        private TextView short_desc,readmore;
         private ProgressBar progressBar;
+        private Button readmoreButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             progressBar = itemView.findViewById(R.id.progressBar);
             topic_image = itemView.findViewById(R.id.topic_image);
+            readmore = itemView.findViewById(R.id.readmoreText);
             short_desc = itemView.findViewById(R.id.short_description);
+            readmoreButton = itemView.findViewById(R.id.readmorebutton);
             if(Constants.language.equals("ur")){
-                urduFont = Typeface.createFromAsset(context.getAssets(), "Jameel_Noori_Nastaleeq.ttf");
+                urduFont = Typeface.createFromAsset(context.getAssets(), "Aslam.ttf");
+                readmoreTypeface = Typeface.createFromAsset(context.getAssets(),"Mehr Nastaliq.ttf");
                 short_desc.setGravity(Gravity.RIGHT);
+                readmore.setGravity(Gravity.RIGHT);
                 short_desc.setTypeface(urduFont);
+                readmore.setTypeface(readmoreTypeface,Typeface.BOLD);
+                readmoreButton.setTypeface(readmoreTypeface,Typeface.BOLD);
             }else{
-                urduFont = Typeface.createFromAsset(context.getAssets(), "Times New Roman.ttf");
+                readmoreTypeface = Typeface.createFromAsset(context.getAssets(),"Times New Roman.ttf");
+                urduFont = Typeface.createFromAsset(context.getAssets(), "Arial.ttf");
                 short_desc.setGravity(Gravity.LEFT);
                 short_desc.setTypeface(urduFont);
+                readmore.setTypeface(readmoreTypeface,Typeface.BOLD);
+                readmoreButton.setTypeface(readmoreTypeface,Typeface.BOLD);
             }
+            readmoreButton.setOnClickListener(this);
             itemView.setOnClickListener(this);
 
         }

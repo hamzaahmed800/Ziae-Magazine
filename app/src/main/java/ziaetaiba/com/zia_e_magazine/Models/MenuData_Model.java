@@ -18,6 +18,13 @@ public class MenuData_Model {
     public MenuData_Model(String id, String name) {
         this.id = id;
         this.name = name;
+        this.extra = extra;
+    }
+
+    public MenuData_Model(String id, String name, String extra) {
+        this.id = id;
+        this.name = name;
+        this.extra = extra;
     }
 
     public String getId() {

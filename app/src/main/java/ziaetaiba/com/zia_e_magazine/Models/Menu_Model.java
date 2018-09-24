@@ -10,6 +10,12 @@ public class Menu_Model {
     @SerializedName("appName")
     @Expose
     private String appName;
+    @SerializedName("year")
+    @Expose
+    private String year;
+    @SerializedName("month")
+    @Expose
+    private String month;
     @SerializedName("Menus")
     @Expose
     private List<MenuData_Model> menus = null;
@@ -20,6 +26,22 @@ public class Menu_Model {
 
     public void setAppName(String appName) {
         this.appName = appName;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
     }
 
     public List<MenuData_Model> getMenus() {

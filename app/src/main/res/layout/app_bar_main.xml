@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorPrimaryDark"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <TextView
@@ -27,16 +27,24 @@
             android:layout_height="wrap_content"
             android:id="@+id/toolbar_title"
             android:textColor="#fff"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/tabStripLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         <com.astuetz.PagerSlidingTabStrip
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="48dip"
+            android:layout_height="50dip"
             android:background="@color/colorPrimary"
+
             />
+        </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 

@@ -19,6 +19,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemIconTint="@drawable/drawer_selected_textcolor"
+        app:itemTextColor="@drawable/drawer_selected_textcolor"
+        app:itemBackground="@drawable/drawer_selected_item"
          />
 
 
